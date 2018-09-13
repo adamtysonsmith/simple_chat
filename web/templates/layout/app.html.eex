@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <script>
       <%= if @conn.assigns[:user] do %>
-        window.userToken = "<%= Phoenix.Token.sign(SimpleChat.Endpoint, "secretkey", @conn.assigns.user.id) %>"
+        window.userToken = "<%= Phoenix.Token.sign(SimpleChat.Endpoint, System.get_env("SOCKET_SECRET"), @conn.assigns.user.id) %>"
       <% end %>
     </script>
   </head>
@@ -20,7 +20,7 @@
     <div class="container">
       <header class="header">
         <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
+          <ul class="nav nav-pills pull-right" style="margin-top: 0px">
             <li>
               <%= if @conn.assigns[:user] do %>
                 <a href="/auth/logout">Logout</a>
@@ -30,7 +30,9 @@
             </li>
           </ul>
         </nav>
-        <span class="logo"></span>
+        <h1 style="font-size: 30px; margin-bottom: 20px;">
+          SimpleChat
+        </h1>
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
