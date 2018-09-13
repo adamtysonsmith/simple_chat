@@ -1,0 +1,17 @@
+<h2>
+  <%= @room.name %>
+</h2>
+
+<div>
+  <textarea id="message-content" style="width: 300px"></textarea>
+</div>
+
+<button id="send-message">Send</button>
+
+<ul id="message-list"></ul>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    window.joinSocketChannel(<%= @room.id %>)
+  })
+</script>

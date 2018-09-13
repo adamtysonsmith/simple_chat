@@ -1,0 +1,10 @@
+<h1>Chat Rooms</h1>
+<ul>
+  <%= for room <- @rooms do %>
+    <li>
+      <%= link room.name, to: room_path(@conn, :get_one, room.id) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link "Create New Room", to: room_path(@conn, :new) %>

@@ -1,0 +1,6 @@
+<h2>Add Room</h2>
+<%= form_for @changeset, room_path(@conn, :create), fn(my_form) -> %>
+  <%= text_input my_form, :name, [placeholder: "Room Name", class: "room-input"] %>
+  <%= error_tag my_form, :name %>
+  <%= submit "Submit", [class: "btn"] %>
+<% end %>
