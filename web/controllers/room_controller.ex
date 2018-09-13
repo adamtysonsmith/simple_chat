@@ -2,6 +2,8 @@ defmodule SimpleChat.RoomController do
   use SimpleChat.Web, :controller
   alias SimpleChat.Room
 
+  plug SimpleChat.Plugs.RequireAuth when action not in [:index]
+  
   def index(conn, _params) do
     IO.inspect conn.assigns
     rooms = Repo.all(Room)
