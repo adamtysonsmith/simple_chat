@@ -20,15 +20,18 @@ window.joinSocketChannel = function(roomId) {
     })
 }
 
+const messageTemplate = (msg) => `
+  <li>
+    <img src="${msg.user.image}" width="30" />
+    ${msg.user.name}: ${msg.content}
+  </li>
+`
+
 function renderMessages(messages) {
-  const _messages = messages
-    .map(msg => `<li>${msg.content}</li>`)
-    .join('')
-  
+  const _messages = messages.map(messageTemplate).join('')
   document.querySelector('#message-list').innerHTML = _messages
 }
 
 function renderNewMessage(message) {
-  const content = `<li>${message.content}</li>`
-  document.querySelector('#message-list').innerHTML += content
+  document.querySelector('#message-list').innerHTML += messageTemplate(message)
 }

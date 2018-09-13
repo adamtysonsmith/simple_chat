@@ -9,18 +9,18 @@ defmodule SimpleChat.RoomChannel do
 
     room = Room
       |> Repo.get(room_id)
-      |> Repo.preload(:messages)
+      |> Repo.preload(messages: [:user])
 
     {:ok, %{messages: room.messages}, assign(socket, :room, room)}
   end
   
   # handles incoming events published by client
-  def handle_in(event, data, socket) do
+  def handle_in(event, %{"content" => content}, socket) do
     room = socket.assigns.room
-    %{"content" => content} = data
-    
+    user_id = socket.assigns.user_id
+
     changeset = room
-      |> build_assoc(:messages)
+      |> build_assoc(:messages, user_id: user_id)
       |> Message.changeset(%{content: content})
     
     case Repo.insert(changeset) do

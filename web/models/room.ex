@@ -3,6 +3,7 @@ defmodule SimpleChat.Room do
   
   schema "rooms" do
     field :name, :string
+    belongs_to :user, SimpleChat.User
     has_many :messages, SimpleChat.Message
     timestamps()
   end

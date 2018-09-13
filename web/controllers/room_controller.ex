@@ -17,7 +17,10 @@ defmodule SimpleChat.RoomController do
   
   # form data is available in params
   def create(conn, %{"room" => room}) do
-    changeset = Room.changeset(%Room{}, room)
+    changeset = conn.assigns.user
+      |> build_assoc(:rooms)
+      |> Room.changeset(room)
+    
     case Repo.insert(changeset) do
       {:ok, post} -> conn 
         |> put_flash(:info, "Created Room Successfully")

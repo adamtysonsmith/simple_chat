@@ -7,8 +7,12 @@ defmodule SimpleChat.UserSocket do
 
   # called whenever a new js client connects
   # this is where you want auth logic
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    # max age is one day
+    case Phoenix.Token.verify(socket, "secretkey", token, max_age: 86400) do
+      {:ok, user_id} -> {:ok, assign(socket, :user_id, user_id)}
+      {:error, _error} -> :error
+    end
   end
   
   # this can help find all the active sockets that belong to a User
