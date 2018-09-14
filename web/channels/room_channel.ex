@@ -25,6 +25,7 @@ defmodule SimpleChat.RoomChannel do
     
     case Repo.insert(changeset) do
       {:ok, message} ->
+        message = message |> Repo.preload(:user)
         broadcast!(socket, "room:#{socket.assigns.room.id}:new", message)
         {:reply, :ok, socket}
       {:error, changeset} ->
