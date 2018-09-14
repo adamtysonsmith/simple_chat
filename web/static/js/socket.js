@@ -15,8 +15,9 @@ window.joinSocketChannel = function(roomId) {
 
   document.getElementById('send-message')
     .addEventListener('click', () => {
-      const content = document.getElementById('message-content').value
-      channel.push(`message:new`, { content, roomId })
+      const textarea = document.getElementById('message-content')
+      channel.push(`message:new`, { content: textarea.value, roomId })
+      textarea.value = null
     })
 }
 

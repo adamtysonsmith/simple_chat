@@ -5,7 +5,6 @@ defmodule SimpleChat.RoomController do
   plug SimpleChat.Plugs.RequireAuth when action not in [:index]
   
   def index(conn, _params) do
-    IO.inspect conn.assigns
     rooms = Repo.all(Room)
     render conn, "rooms.html", rooms: rooms
   end
@@ -31,7 +30,6 @@ defmodule SimpleChat.RoomController do
   
   def get_one(conn, %{"id" => id}) do
     room = Repo.get!(Room, id)
-    IO.inspect room
     render conn, "single_room.html", room: room
   end
 end

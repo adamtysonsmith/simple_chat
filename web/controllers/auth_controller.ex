@@ -19,7 +19,6 @@ defmodule SimpleChat.AuthController do
   end
 
   def logout(conn, _params) do
-    IO.puts "HERE!"
     conn
     |> configure_session(drop: true)
     |> redirect(to: room_path(conn, :index))
